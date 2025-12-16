@@ -51,18 +51,6 @@ AI Summarize provides branded action buttons that, when clicked, open the user's
 - **PHP:** 8.2 or later
 - **Browser:** Modern browsers (Chrome, Firefox, Safari, Edge)
 
-## Development
-
-This plugin is built using the [Ground Level Framework](https://github.com/caseproof/ground-level-php) and follows Caseproof coding standards.
-
-### Ground Level Components Used
-
-- [Container](https://github.com/caseproof/ground-level-container) - Dependency injection
-- [Database](https://github.com/caseproof/ground-level-database) - Database abstraction
-- [Package](https://github.com/caseproof/ground-level-package) - Plugin bootstrapping
-- [Query Builder](https://github.com/caseproof/ground-level-query-builder) - SQL query building
-- [Support](https://github.com/caseproof/ground-level-support) - Utility classes
-
 ### Installation
 
 1. Clone the repository
@@ -274,7 +262,7 @@ XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html tmp/coverage
 
 ## Development
 
-This plugin is built using the [Ground Level Framework](https://github.com/caseproof/ground-level-php) and follows Caseproof coding standards.
+This plugin is built using WordPress coding standards.
 
 ### Project Structure
 
@@ -296,19 +284,6 @@ tests/                        # PHPUnit tests
 assets/frontend/css/          # Frontend styles
 build/blocks/                 # Built block assets
 ```
-
-### Development Timeline
-
-This plugin was developed as part of AI Fridays Session 1 (September-October 2024):
-
-- **Week 1:** Foundation & Research ✅
-- **Week 2:** Admin Interface & Settings ✅
-- **Week 3:** Block Editor Integration ✅
-- **Week 4:** Production Readiness (Testing, Security, Accessibility, i18n) ✅
-
-## Contributing
-
-This is an internal Caseproof project. For questions or issues, contact the development team.
 
 ## Changelog
 
