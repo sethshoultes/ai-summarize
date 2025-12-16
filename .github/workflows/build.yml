@@ -53,10 +53,6 @@ jobs:
             echo "Error: build directory not created"
             exit 1
           fi
-          if [ ! -d "vendor-prefixed" ]; then
-            echo "Error: vendor-prefixed directory not created"
-            exit 1
-          fi
           echo "Build artifacts verified successfully"
 
       - name: Check for uncommitted build files

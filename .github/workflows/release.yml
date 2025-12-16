@@ -27,8 +27,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install PHP dependencies (production only)
-        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+      - name: Install PHP dependencies (production only - if any)
+        run: |
+          if [ -f composer.json ]; then
+            # For now, this plugin has no production dependencies
+            # composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+            echo "No production dependencies to install"
+          fi
 
       - name: Install Node dependencies
         run: npm ci
@@ -52,10 +57,6 @@ jobs:
 
           # Built assets
           cp -r build release/ai-summarize/
-
-          # Vendor (production only)
-          cp -r vendor release/ai-summarize/
-          cp -r vendor-prefixed release/ai-summarize/
 
       - name: Remove development files from release
         run: |
