@@ -1,0 +1,21 @@
+# Dependencies
+/node_modules/
+/vendor/
+/vendor-prefixed/
+
+# Build files
+/build/
+
+# IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Composer
+composer.lock
+
+# npm
+package-lock.json
+
+# WordPress
+*.log

@@ -1,0 +1,17 @@
+{
+	"name": "ai-summarize",
+	"version": "0.1.0",
+	"description": "WordPress plugin that adds AI service buttons to blog posts for content summarization",
+	"author": "Caseproof",
+	"license": "GPL-3.0",
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"format": "wp-scripts format",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^27.0.0"
+	}
+}

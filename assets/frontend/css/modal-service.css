@@ -1,0 +1,232 @@
+/**
+ * Claude Modal Styles
+ *
+ * Modal dialog for displaying prompts before opening Claude AI.
+ */
+
+/* Modal overlay */
+.ai-summarize-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 999999;
+}
+
+.ai-summarize-modal--active {
+	display: block;
+}
+
+/* Prevent body scroll when modal is open */
+body.ai-summarize-modal-open {
+	overflow: hidden;
+}
+
+/* Modal overlay background */
+.ai-summarize-modal__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(4px);
+}
+
+/* Modal content container */
+.ai-summarize-modal__content {
+	position: relative;
+	max-width: 600px;
+	margin: 5vh auto;
+	background: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: column;
+	max-height: 90vh;
+}
+
+/* Modal header */
+.ai-summarize-modal__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.5rem 2rem;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.ai-summarize-modal__header h3 {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #1e1e1e;
+}
+
+.ai-summarize-modal__close {
+	background: none;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	color: #666;
+	border-radius: 4px;
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ai-summarize-modal__close:hover {
+	background: #f0f0f0;
+	color: #1e1e1e;
+}
+
+/* Modal body */
+.ai-summarize-modal__body {
+	padding: 2rem;
+	overflow-y: auto;
+	flex: 1;
+}
+
+.ai-summarize-modal__instructions {
+	margin: 0 0 1.5rem 0;
+	color: #666;
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.ai-summarize-modal__prompt-container {
+	position: relative;
+}
+
+.ai-summarize-modal__prompt {
+	width: 100%;
+	min-height: 150px;
+	max-height: 300px;
+	padding: 1rem;
+	border: 2px solid #e5e5e5;
+	border-radius: 6px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	font-size: 0.95rem;
+	line-height: 1.6;
+	resize: vertical;
+	background: #f9f9f9;
+	color: #1e1e1e;
+	box-sizing: border-box;
+	overflow-y: auto;
+	overflow-x: hidden;
+	word-wrap: break-word;
+}
+
+.ai-summarize-modal__prompt:focus {
+	outline: none;
+	border-color: #C15F3C;
+	background: #ffffff;
+}
+
+.ai-summarize-modal__copy {
+	margin-top: 1rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	background: #1e1e1e;
+	color: #ffffff;
+	border: none;
+	border-radius: 6px;
+	font-size: 0.95rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.ai-summarize-modal__copy:hover {
+	background: #333333;
+	transform: translateY(-1px);
+}
+
+.ai-summarize-modal__copy--success {
+	background: #10A37F;
+}
+
+.ai-summarize-modal__copy--success:hover {
+	background: #0D8C6D;
+}
+
+.ai-summarize-modal__copy svg {
+	flex-shrink: 0;
+}
+
+/* Modal footer */
+.ai-summarize-modal__footer {
+	display: flex;
+	gap: 1rem;
+	padding: 1.5rem 2rem;
+	border-top: 1px solid #e5e5e5;
+	justify-content: flex-end;
+}
+
+.ai-summarize-modal__button {
+	padding: 0.75rem 1.5rem;
+	border-radius: 6px;
+	font-size: 0.95rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s;
+	text-decoration: none;
+	display: inline-block;
+	border: none;
+}
+
+.ai-summarize-modal__button--secondary {
+	background: #f0f0f0;
+	color: #1e1e1e;
+}
+
+.ai-summarize-modal__button--secondary:hover {
+	background: #e5e5e5;
+}
+
+.ai-summarize-modal__button--primary {
+	background: #C15F3C;
+	color: #ffffff;
+}
+
+.ai-summarize-modal__button--primary:hover {
+	background: #A84F30;
+	transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+	.ai-summarize-modal__content {
+		margin: 2vh auto;
+		max-height: 96vh;
+		border-radius: 8px 8px 0 0;
+		max-width: 100%;
+	}
+
+	.ai-summarize-modal__header,
+	.ai-summarize-modal__body,
+	.ai-summarize-modal__footer {
+		padding: 1.25rem;
+	}
+
+	.ai-summarize-modal__footer {
+		flex-direction: column;
+	}
+
+	.ai-summarize-modal__button {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.ai-summarize-modal__copy:hover,
+	.ai-summarize-modal__button--primary:hover {
+		transform: none;
+	}
+}

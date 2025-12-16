@@ -1,0 +1,82 @@
+{
+    "name": "caseproof/ai-summarize",
+    "description": "WordPress plugin that adds AI service buttons to blog posts for quick content summarization.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Team Caseproof",
+            "email": "developers@caseproof.com"
+        }
+    ],
+    "extra": {
+        "strauss": {
+            "packages": [
+                "caseproof/ground-level-package",
+                "caseproof/ground-level-database"
+            ],
+            "include_modified_date": false
+        }
+    },
+    "config": {
+        "lock": false,
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "repositories": {
+        "caseproof": {
+            "type": "composer",
+            "url": "https://pkgs.cspf.co"
+        }
+    },
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "brianhenryie/strauss": "^0.21.1",
+        "caseproof/coding-standards-php": "^0.7.0",
+        "caseproof/ground-level-console": "^0.15.1",
+        "caseproof/ground-level-database": "^0.15.1",
+        "caseproof/ground-level-package": "^0.15.1",
+        "caseproof/ground-level-php-tests": "^0.8.5",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcsstandards/phpcsextra": "^1.4",
+        "phpcsstandards/phpcsutils": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Caseproof\\AiSummarize\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Caseproof\\AiSummarize\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "ground-level": "./vendor/bin/ground-level",
+        "build": [
+            "if [ -x vendor/bin/strauss ]; then rm -rf ./vendor-prefixed && ./vendor/bin/strauss; fi",
+            "if [ -x vendor/bin/ground-level ]; then ./vendor/bin/ground-level i18n:replace -d ai-summarize -D vendor-prefixed; fi"
+        ],
+        "cs-check": "./vendor/bin/phpcs",
+        "ch-check-errors": "@cs-check --error-severity=1 --warning-severity=6",
+        "cs-fix": "./vendor/bin/phpcbf",
+        "post-install-cmd": [
+            "@build",
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "@build",
+            "composer dump-autoload"
+        ],
+        "install:wp": "@tests-php install-wp",
+        "tests-install": [
+            "@install:wp"
+        ],
+        "tests-php": "./vendor/bin/cspf-tests-php",
+        "test": "./vendor/bin/phpunit"
+    }
+}

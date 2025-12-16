@@ -1,0 +1,247 @@
+/**
+ * AI Summarize Buttons Block Styles
+ *
+ * Brand-compliant button styles for all supported AI services.
+ * Based on official brand guidelines from BRAND_RESEARCH.md
+ */
+
+/* Block container */
+.wp-block-ai-summarize-buttons {
+	margin: 2rem 0;
+	clear: both;
+}
+
+/* Buttons container */
+.ai-summarize-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Layout variations */
+.ai-summarize-buttons--layout-horizontal {
+	flex-direction: row;
+}
+
+.ai-summarize-buttons--layout-vertical {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.ai-summarize-buttons--layout-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 1rem;
+}
+
+/* Base button styles */
+.ai-summarize-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+	min-height: 44px; /* Accessibility: minimum touch target */
+	min-width: 44px;
+}
+
+/* Button icon */
+.ai-summarize-button__icon {
+	width: 1.25rem;
+	height: 1.25rem;
+	flex-shrink: 0;
+}
+
+/* Button size variations */
+.ai-summarize-buttons--size-small .ai-summarize-button {
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	min-height: 36px;
+}
+
+.ai-summarize-buttons--size-small .ai-summarize-button__icon {
+	width: 1rem;
+	height: 1rem;
+}
+
+.ai-summarize-buttons--size-medium .ai-summarize-button {
+	padding: 0.75rem 1.5rem;
+	font-size: 1rem;
+	min-height: 44px;
+}
+
+.ai-summarize-buttons--size-medium .ai-summarize-button__icon {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.ai-summarize-buttons--size-large .ai-summarize-button {
+	padding: 1rem 2rem;
+	font-size: 1.125rem;
+	min-height: 52px;
+}
+
+.ai-summarize-buttons--size-large .ai-summarize-button__icon {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.ai-summarize-button:hover,
+.ai-summarize-button:focus {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	text-decoration: none;
+}
+
+.ai-summarize-button:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.ai-summarize-button:active {
+	transform: translateY(0);
+}
+
+/* Button label */
+.ai-summarize-button__label {
+	display: inline-block;
+}
+
+/* ChatGPT - Green theme */
+.ai-summarize-button--chatgpt {
+	background-color: #10A37F;
+	color: #FFFFFF;
+}
+
+.ai-summarize-button--chatgpt:hover,
+.ai-summarize-button--chatgpt:focus {
+	background-color: #0D8C6D;
+	color: #FFFFFF;
+}
+
+/* Perplexity - Turquoise theme */
+.ai-summarize-button--perplexity {
+	background-color: #20B8CD;
+	color: #FFFFFF;
+}
+
+.ai-summarize-button--perplexity:hover,
+.ai-summarize-button--perplexity:focus {
+	background-color: #1A9FB0;
+	color: #FFFFFF;
+}
+
+/* Claude - Rust orange theme */
+.ai-summarize-button--claude {
+	background-color: #C15F3C;
+	color: #FFFFFF;
+}
+
+.ai-summarize-button--claude:hover,
+.ai-summarize-button--claude:focus {
+	background-color: #A84F30;
+	color: #FFFFFF;
+}
+
+/* Copilot - Microsoft blue theme */
+.ai-summarize-button--copilot {
+	background-color: #0078D4;
+	color: #FFFFFF;
+}
+
+.ai-summarize-button--copilot:hover,
+.ai-summarize-button--copilot:focus {
+	background-color: #0063B1;
+	color: #FFFFFF;
+}
+
+/* You.com - Deep blue theme */
+.ai-summarize-button--you {
+	background-color: #1E3A8A;
+	color: #FFFFFF;
+}
+
+.ai-summarize-button--you:hover,
+.ai-summarize-button--you:focus {
+	background-color: #1E40AF;
+	color: #FFFFFF;
+}
+
+/* Alignment classes */
+.wp-block-ai-summarize-buttons.alignleft {
+	text-align: left;
+}
+
+.wp-block-ai-summarize-buttons.alignleft .ai-summarize-buttons {
+	justify-content: flex-start;
+}
+
+.wp-block-ai-summarize-buttons.aligncenter {
+	text-align: center;
+}
+
+.wp-block-ai-summarize-buttons.aligncenter .ai-summarize-buttons {
+	justify-content: center;
+}
+
+.wp-block-ai-summarize-buttons.alignright {
+	text-align: right;
+}
+
+.wp-block-ai-summarize-buttons.alignright .ai-summarize-buttons {
+	justify-content: flex-end;
+}
+
+.wp-block-ai-summarize-buttons.alignfull,
+.wp-block-ai-summarize-buttons.alignwide {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.ai-summarize-buttons {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.ai-summarize-button {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.ai-summarize-button {
+		padding: 0.625rem 1.25rem;
+		font-size: 0.9375rem;
+	}
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+	.ai-summarize-button {
+		border: 2px solid currentColor;
+	}
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+	.ai-summarize-button {
+		transition: none;
+	}
+
+	.ai-summarize-button:hover,
+	.ai-summarize-button:focus {
+		transform: none;
+	}
+}

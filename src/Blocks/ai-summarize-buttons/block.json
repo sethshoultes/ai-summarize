@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-summarize/buttons",
+	"version": "0.1.0",
+	"title": "AI Summarize Buttons",
+	"category": "widgets",
+	"icon": "superhero",
+	"description": "Add buttons to summarize content with AI services like ChatGPT, Claude, and Perplexity.",
+	"keywords": [
+		"ai",
+		"summarize",
+		"chatgpt",
+		"claude",
+		"perplexity"
+	],
+	"textdomain": "ai-summarize",
+	"supports": {
+		"align": ["left", "center", "right", "wide", "full"],
+		"html": false
+	},
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "center"
+		},
+		"enabledServices": {
+			"type": "array",
+			"default": []
+		},
+		"buttonSize": {
+			"type": "string",
+			"default": "medium",
+			"enum": ["small", "medium", "large"]
+		},
+		"buttonLayout": {
+			"type": "string",
+			"default": "horizontal",
+			"enum": ["horizontal", "vertical", "grid"]
+		},
+		"showLabels": {
+			"type": "boolean",
+			"default": true
+		},
+		"useGlobalSettings": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

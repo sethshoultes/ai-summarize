@@ -1,0 +1,17 @@
+/**
+ * Editor preview styles
+ */
+.ai-summarize-buttons-preview {
+	padding: 1rem;
+}
+
+.ai-summarize-buttons-preview p {
+	margin: 0;
+	text-align: center;
+}
+
+/* Prevent buttons from being clickable in editor */
+.ai-summarize-buttons-preview .ai-summarize-button {
+	pointer-events: none;
+	position: relative;
+}
