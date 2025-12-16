@@ -1,7 +1,5 @@
 # **AI Summarize WordPress Plugin**
 
-## AI Fridays Session 1
-
 # Overview
 
 The AI Summarize WordPress plugin will provide website visitors with an intuitive way to quickly summarize blog posts using popular AI services (ChatGPT, Perplexity, Claude, CoPilot, You, and other leading AI platforms). The plugin creates branded action buttons that, when clicked, open the user's preferred AI service with a pre-configured prompt containing the current page URL and customizable context about the website. This approach leverages users' existing AI subscriptions and conversation history while providing a seamless content summarization experience.
@@ -435,8 +433,6 @@ public function generateUrl($service, $prompt) {
 **WordPress Options:**
 
 * `ai_summarize_settings`: JSON object or serialized array containing plugin configuration
-* `ai_summarize_version`: Plugin ver//github.com/caseproof/coding-standards-js
-* (Optional) Ground Level PHP components: [https://github.com/caseproof/ground-level-php](https://github.com/caseproof/ground-level-php)
 
 **WordPress APIs:**
 
@@ -596,11 +592,7 @@ Estimated Timeline: 4-6 AI Friday Sessions
 # Company Resources
 
 * AI Friday Guidelines: [https://docs.google.com/document/d/1t6oXYbZ-H0wqskPzySjNgGgdEn5aHGRC1G6ygm6wArI/edit?tab=t.0\#heading=h.xgl29iwxtgsf](https://docs.google.com/document/d/1t6oXYbZ-H0wqskPzySjNgGgdEn5aHGRC1G6ygm6wArI/edit?tab=t.0#heading=h.xgl29iwxtgsf)
-* GitHub Project Repository: [https://github.com/caseproof/ai-fridays-session-1](https://github.com/caseproof/ai-fridays-session-1)
-* Caseproof WP Coding Standards: [https://github.com/caseproof/coding-standards-php/blob/main/docs/caseproof-wp-standard.md](https://github.com/caseproof/coding-standards-php/blob/main/docs/caseproof-wp-standard.md)
-* JavaScript Coding Standards: [https://github.com/caseproof/coding-standards-js](https://github.com/caseproof/coding-standards-js)
-* Ground Level PHP Tests: [https://github.com/caseproof/ground-level-php-tests](https://github.com/caseproof/ground-level-php-tests)
-* Ground Level PHP: [https://github.com/caseproof/ground-level-php](https://github.com/caseproof/ground-level-php)
+* GitHub Project Repository: [https://github.com/sethshoultes/ai-summarize](https://github.com/sethshoultes/ai-summarize)
 
 # WordPress Resources
 
@@ -672,7 +664,6 @@ tests/                    # Clean test framework ready for AI tests
 - **Access**: Local WP admin dashboard → Plugins → AI Summarize
 
 **Development Workflow:**
-- Code changes in `/home/cartpauj/caseproof/github/ai-fridays-session-1/` are immediately reflected in Local WP
 - Use Local WP site for testing admin interface, WordPress integration, and frontend functionality
 - PHPUnit tests still run independently with `composer test`
 
@@ -688,7 +679,7 @@ tests/                    # Clean test framework ready for AI tests
 
 ## Week 2: Admin Interface & Settings - ✅ COMPLETED
 
-**Date:** September 26 - October 3, 2024
+**Date:** September 26 - October 3, 2025
 
 **Accomplished:**
 
