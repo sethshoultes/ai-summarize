@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name: AI Summarize
- * Plugin URI: https://github.com/caseproof/ai-fridays-session-1
+ * Plugin URI: https://github.com/sethshoultes/ai-summarize
  * Description: Add AI service buttons to blog posts for quick content summarization using popular AI services.
  * Author: Caseproof
  * Version: 0.1.0
- * Author URI: https://caseproof.com
+ * Author URI: https://github.com/sethshoultes
  * License: GPLv3
  * Text Domain: ai-summarize
  * Requires at least: 6.6
