@@ -107,14 +107,9 @@ class Bootstrap {
 		// Register admin menu.
 		add_action( 'admin_menu', [ Admin\Page::class, 'register' ] );
 
-		// Register block on init.
-		add_action(
-			'init',
-			function (): void {
-				$block = $this->container->get( 'aiSummarizeButtons' );
-				$block->register();
-			}
-		);
+		// Register block immediately (we're already in the init hook).
+		$block = $this->container->get( 'aiSummarizeButtons' );
+		$block->register();
 
 		// Enqueue frontend assets.
 		add_action(
