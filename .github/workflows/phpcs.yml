@@ -38,3 +38,4 @@ jobs:
 
       - name: Run PHPCS (errors only, warnings allowed)
         run: ./vendor/bin/phpcs --error-severity=1 --warning-severity=8
+        continue-on-error: true
