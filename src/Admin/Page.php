@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Caseproof\AiSummarize\Admin;
 
+use Caseproof\AiSummarize\Container;
 use Caseproof\AiSummarize\Services\Settings;
-use Caseproof\AiSummarize\GroundLevel\Container\Concerns\HasStaticContainer;
-use Caseproof\AiSummarize\GroundLevel\Container\Contracts\StaticContainerAwareness;
 
 /**
  * This class registers and renders the AI Summarize admin settings page.
@@ -14,9 +13,12 @@ use Caseproof\AiSummarize\GroundLevel\Container\Contracts\StaticContainerAwarene
  * The admin page provides settings management for AI service configuration,
  * prompt templates, and category-specific overrides.
  */
-class Page implements StaticContainerAwareness {
+class Page {
 
-	use HasStaticContainer;
+	/**
+	 * @var Container|null
+	 */
+	private static ?Container $container = null;
 
 	/**
 	 * The capability required to view the page.
@@ -27,6 +29,27 @@ class Page implements StaticContainerAwareness {
 	 * The page slug.
 	 */
 	public const SLUG = 'ai-summarize';
+
+	/**
+	 * Set the container instance.
+	 *
+	 * @param Container $container The container instance.
+	 */
+	public static function setContainer( Container $container ): void {
+		self::$container = $container;
+	}
+
+	/**
+	 * Get the container instance.
+	 *
+	 * @return Container
+	 */
+	private static function getContainer(): Container {
+		if ( self::$container === null ) {
+			throw new \RuntimeException( 'Container not set' );
+		}
+		return self::$container;
+	}
 
 	/**
 	 * Retrieves the page title.
