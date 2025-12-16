@@ -20,6 +20,13 @@
         <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
         <!-- Allow inline comments -->
         <exclude name="Squiz.Commenting.InlineComment"/>
+        <!-- Allow modern PHP naming conventions -->
+        <exclude name="WordPress.NamingConventions.ValidVariableName"/>
+        <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
+        <exclude name="WordPress.Files.FileName"/>
+        <!-- Allow missing doc comments -->
+        <exclude name="Squiz.Commenting.ClassComment"/>
+        <exclude name="Squiz.Commenting.FunctionComment"/>
     </rule>
 
     <rule ref="WordPress-Extra">
