@@ -25,11 +25,11 @@ require_once 'src/functions.php';
 use function Caseproof\AiSummarize\aiSummarizeApp;
 
 /*
- * Initialize the plugin on the 'plugins_loaded' hook to ensure translations
- * are loaded at the correct time.
+ * Initialize the plugin on the 'init' hook to ensure translations
+ * are loaded at the correct time (WordPress 6.7+ requirement).
  */
 add_action(
-	'plugins_loaded',
+	'init',
 	function () {
 		aiSummarizeApp( __FILE__ );
 	}
