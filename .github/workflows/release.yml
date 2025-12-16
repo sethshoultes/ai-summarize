@@ -26,13 +26,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install PHP dependencies (production only - if any)
-        run: |
-          if [ -f composer.json ]; then
-            # For now, this plugin has no production dependencies
-            # composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
-            echo "No production dependencies to install"
-          fi
+      - name: Install PHP dependencies (production only)
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Install Node dependencies
         run: npm install
@@ -53,6 +48,9 @@ jobs:
           cp -r src release/ai-summarize/
           cp -r views release/ai-summarize/
           cp -r assets release/ai-summarize/
+
+          # Composer autoloader (required for PSR-4 class loading)
+          cp -r vendor release/ai-summarize/
 
           # Built assets
           cp -r build release/ai-summarize/
