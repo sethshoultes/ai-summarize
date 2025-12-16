@@ -1,0 +1,67 @@
+name: Build Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    name: Validate Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build JavaScript assets
+        run: npm run build
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "build" ]; then
+            echo "Error: build directory not created"
+            exit 1
+          fi
+          if [ ! -d "vendor-prefixed" ]; then
+            echo "Error: vendor-prefixed directory not created"
+            exit 1
+          fi
+          echo "Build artifacts verified successfully"
+
+      - name: Check for uncommitted build files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Warning: Build process generated uncommitted files"
+            git status
+          fi

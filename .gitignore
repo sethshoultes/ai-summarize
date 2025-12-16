@@ -5,17 +5,55 @@
 
 # Build files
 /build/
+/dist/
+*.zip
+release/
 
-# IDE
+# IDE and OS
 .DS_Store
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+nbproject/
+.buildpath
 
 # Composer
 composer.lock
+composer.phar
 
-# npm
+# npm/yarn
 package-lock.json
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # WordPress
+*.log
+wp-config.php
+.htaccess
+
+# Testing
+/tmp/
+/tests/tmp/
+.phpunit.result.cache
+coverage/
+*.coveralls.yml
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+
+# Logs
+logs/
 *.log

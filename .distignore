@@ -1,0 +1,61 @@
+# Development files
+/.git
+/.github
+/.vscode
+/.idea
+/node_modules
+/vendor
+/tests
+/docs
+
+# Configuration files
+/.gitignore
+/.gitattributes
+/.editorconfig
+/.eslintrc
+/.eslintignore
+/phpcs.xml.dist
+/phpunit.xml.dist
+/composer.json
+/composer.lock
+/package.json
+/package-lock.json
+/webpack.config.js
+/tsconfig.json
+/.npmrc
+/.babelrc
+
+# Documentation (except README.md)
+CLAUDE.md
+CONTRIBUTING.md
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+*.md
+!README.md
+
+# Build artifacts
+*.zip
+release/
+
+# OS files
+.DS_Store
+Thumbs.db
+._*
+
+# IDE files
+*.sublime-project
+*.sublime-workspace
+.project
+.settings
+nbproject/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Source maps
+*.map

@@ -1,0 +1,120 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Release Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install PHP dependencies (production only)
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build JavaScript assets
+        run: npm run build
+
+      - name: Create release directory
+        run: mkdir -p release/ai-summarize
+
+      - name: Copy production files
+        run: |
+          # Core plugin files
+          cp ai-summarize.php release/ai-summarize/
+          cp README.md release/ai-summarize/
+
+          # Source files
+          cp -r src release/ai-summarize/
+          cp -r views release/ai-summarize/
+          cp -r assets release/ai-summarize/
+
+          # Built assets
+          cp -r build release/ai-summarize/
+
+          # Vendor (production only)
+          cp -r vendor release/ai-summarize/
+          cp -r vendor-prefixed release/ai-summarize/
+
+      - name: Remove development files from release
+        run: |
+          cd release/ai-summarize
+
+          # Remove test files
+          find . -name "*.test.js" -delete
+          find . -name "*.spec.js" -delete
+          find . -name "__tests__" -type d -exec rm -rf {} + 2>/dev/null || true
+          find . -name "tests" -type d -exec rm -rf {} + 2>/dev/null || true
+          find . -name "test" -type d -exec rm -rf {} + 2>/dev/null || true
+
+          # Remove docs
+          find . -name "docs" -type d -exec rm -rf {} + 2>/dev/null || true
+
+          # Remove development config files
+          find . -name ".git*" -delete
+          find . -name ".DS_Store" -delete
+          find . -name "phpunit.xml*" -delete
+          find . -name "phpcs.xml*" -delete
+          find . -name "composer.json" -delete
+          find . -name "composer.lock" -delete
+          find . -name "package.json" -delete
+          find . -name "package-lock.json" -delete
+          find . -name "webpack.config.js" -delete
+          find . -name "tsconfig.json" -delete
+          find . -name ".npmrc" -delete
+          find . -name ".editorconfig" -delete
+          find . -name "CLAUDE.md" -delete
+
+          # Remove any markdown files except README.md
+          find . -name "*.md" ! -name "README.md" -delete
+
+          # Remove empty directories
+          find . -type d -empty -delete
+
+      - name: Create release zip
+        run: |
+          cd release
+          zip -r ../ai-summarize.zip ai-summarize/
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ai-summarize.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-summarize-${{ steps.get_version.outputs.VERSION }}
+          path: ai-summarize.zip
+          retention-days: 30
