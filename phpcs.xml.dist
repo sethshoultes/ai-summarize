@@ -27,6 +27,11 @@
         <!-- Allow missing doc comments -->
         <exclude name="Squiz.Commenting.ClassComment"/>
         <exclude name="Squiz.Commenting.FunctionComment"/>
+        <!-- Allow modern PHP syntax -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+        <exclude name="Universal.Operators.DisallowShortTernary"/>
+        <exclude name="Generic.ControlStructures.InlineControlStructure"/>
+        <exclude name="Squiz.ControlStructures.ControlSignature"/>
     </rule>
 
     <rule ref="WordPress-Extra">
