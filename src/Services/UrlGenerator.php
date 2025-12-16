@@ -18,67 +18,63 @@ namespace Caseproof\AiSummarize\Services;
  *
  * Handles URL generation for all supported AI services.
  */
-class UrlGenerator
-{
-    /**
-     * Generate URL for a specific AI service with encoded prompt
-     *
-     * Returns empty string for modal services (services with empty url_template).
-     *
-     * @param  string $service The AI service identifier.
-     * @param  string $prompt  The prompt to encode in the URL.
-     * @return string The generated URL, or empty string for modal services.
-     */
-    public function generate(string $service, string $prompt): string
-    {
-        if (! isset(Settings::AI_SERVICES[ $service ])) {
-            return '';
-        }
+class UrlGenerator {
 
-        $serviceConfig = Settings::AI_SERVICES[ $service ];
-        $urlTemplate   = $serviceConfig['url_template'];
+	/**
+	 * Generate URL for a specific AI service with encoded prompt
+	 *
+	 * Returns empty string for modal services (services with empty url_template).
+	 *
+	 * @param  string $service The AI service identifier.
+	 * @param  string $prompt  The prompt to encode in the URL.
+	 * @return string The generated URL, or empty string for modal services.
+	 */
+	public function generate( string $service, string $prompt ): string {
+		if ( ! isset( Settings::AI_SERVICES[ $service ] ) ) {
+			return '';
+		}
 
-        // Modal services have empty url_template.
-        if (empty($urlTemplate)) {
-            return '';
-        }
+		$serviceConfig = Settings::AI_SERVICES[ $service ];
+		$urlTemplate   = $serviceConfig['url_template'];
 
-        // URL encode the prompt.
-        $encodedPrompt = rawurlencode($prompt);
+		// Modal services have empty url_template.
+		if ( empty( $urlTemplate ) ) {
+			return '';
+		}
 
-        // Generate the final URL.
-        return sprintf($urlTemplate, $encodedPrompt);
-    }
+		// URL encode the prompt.
+		$encodedPrompt = rawurlencode( $prompt );
 
-    /**
-     * Get display name for a service
-     *
-     * @param  string $service The AI service identifier.
-     * @return string The service display name.
-     */
-    public function getServiceName(string $service): string
-    {
-        return Settings::AI_SERVICES[ $service ]['name'] ?? $service;
-    }
+		// Generate the final URL.
+		return sprintf( $urlTemplate, $encodedPrompt );
+	}
 
-    /**
-     * Get all supported service identifiers
-     *
-     * @return array<string> List of service identifiers.
-     */
-    public function getSupportedServices(): array
-    {
-        return array_keys(Settings::AI_SERVICES);
-    }
+	/**
+	 * Get display name for a service
+	 *
+	 * @param  string $service The AI service identifier.
+	 * @return string The service display name.
+	 */
+	public function getServiceName( string $service ): string {
+		return Settings::AI_SERVICES[ $service ]['name'] ?? $service;
+	}
 
-    /**
-     * Check if a service is supported
-     *
-     * @param  string $service The AI service identifier.
-     * @return boolean True if supported.
-     */
-    public function isServiceSupported(string $service): bool
-    {
-        return isset(Settings::AI_SERVICES[ $service ]);
-    }
+	/**
+	 * Get all supported service identifiers
+	 *
+	 * @return array<string> List of service identifiers.
+	 */
+	public function getSupportedServices(): array {
+		return array_keys( Settings::AI_SERVICES );
+	}
+
+	/**
+	 * Check if a service is supported
+	 *
+	 * @param  string $service The AI service identifier.
+	 * @return boolean True if supported.
+	 */
+	public function isServiceSupported( string $service ): bool {
+		return isset( Settings::AI_SERVICES[ $service ] );
+	}
 }

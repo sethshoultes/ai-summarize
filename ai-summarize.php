@@ -33,4 +33,4 @@ require_once 'vendor-prefixed/autoload.php';
 require_once 'src/functions.php';
 use function Caseproof\AiSummarize\aiSummarizeApp;
 
-return aiSummarizeApp(__FILE__);
+return aiSummarizeApp( __FILE__ );

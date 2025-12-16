@@ -12,10 +12,21 @@
     <rule ref="WordPress">
         <!-- Allow short array syntax -->
         <exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+        <!-- Allow file docblocks -->
+        <exclude name="Squiz.Commenting.FileComment"/>
+        <!-- Allow variable spacing -->
+        <exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
+        <!-- Allow function spacing -->
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
+        <!-- Allow inline comments -->
+        <exclude name="Squiz.Commenting.InlineComment"/>
     </rule>
 
-    <rule ref="WordPress-Extra"/>
-    <rule ref="WordPress-Docs"/>
+    <rule ref="WordPress-Extra">
+        <!-- Allow variable alignment -->
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent"/>
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
+    </rule>
 
     <exclude-pattern>vendor/*</exclude-pattern>
     <exclude-pattern>build/*</exclude-pattern>
