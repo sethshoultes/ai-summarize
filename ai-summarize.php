@@ -24,4 +24,13 @@ require_once 'vendor/autoload.php';
 require_once 'src/functions.php';
 use function Caseproof\AiSummarize\aiSummarizeApp;
 
-return aiSummarizeApp( __FILE__ );
+/*
+ * Initialize the plugin on the 'plugins_loaded' hook to ensure translations
+ * are loaded at the correct time.
+ */
+add_action(
+	'plugins_loaded',
+	function () {
+		aiSummarizeApp( __FILE__ );
+	}
+);
