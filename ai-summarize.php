@@ -4,7 +4,7 @@
  * Plugin Name: AI Summarize
  * Plugin URI: https://github.com/sethshoultes/ai-summarize
  * Description: Add AI service buttons to blog posts for quick content summarization using popular AI services.
- * Author: Caseproof
+ * Author: Seth Shoultes
  * Version: 0.1.0
  * Author URI: https://github.com/sethshoultes
  * License: GPLv3
