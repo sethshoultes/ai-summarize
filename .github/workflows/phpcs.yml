@@ -36,9 +36,5 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Run PHPCS
-        run: composer cs-check
-
-      - name: Check for errors only (warnings allowed)
-        run: composer cs-check-errors
-        continue-on-error: true
+      - name: Run PHPCS (errors only, warnings allowed)
+        run: ./vendor/bin/phpcs --error-severity=1 --warning-severity=8
