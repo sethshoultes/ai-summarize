@@ -11,7 +11,7 @@
  * Text Domain: ai-summarize
  * Requires at least: 6.6
  * Tested up to: 6.8
- * Requires PHP: 8.2
+ * Requires PHP: 8.0
  */
 
 declare(strict_types=1);
