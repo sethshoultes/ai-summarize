@@ -9,160 +9,151 @@ use Caseproof\AiSummarize\Admin\Page;
 use Caseproof\AiSummarize\Services\Settings;
 use Caseproof\AiSummarize\Services\UrlGenerator;
 use Caseproof\AiSummarize\Blocks\AiSummarizeButtons;
-use Caseproof\AiSummarize\GroundLevel\Support\Models\Hook;
-use Caseproof\AiSummarize\GroundLevel\Package\Bootstrap as BaseBootstrap;
-use Caseproof\AiSummarize\GroundLevel\Database\Service as DatabaseService;
 
-class Bootstrap extends BaseBootstrap {
+class Bootstrap {
 
 	/**
-	 * Initalize the service.
+	 * @var Container
 	 */
-	public function init(): void {
-		/*
-		 * Retrieve the plugin's dependency injection container.
-		 *
-		 * This container is used to manage the plugin's services, factories, and
-		 * configuration parameters.
-		 */
-		$container = $this->container();
+	private Container $container;
 
-		/*
-		 * Define the plugin's database connection service.
-		 *
-		 * This is a simple reference to the global $wpdb object. It's necessary
-		 * to define this so that other services that utilize a database connection
-		 * will always point to the same database connection.
-		 */
-		$container->addService(
-			DatabaseService::DB_CONNECTION,
+	/**
+	 * @var string
+	 */
+	private string $mainFile;
+
+	/**
+	 * @var array
+	 */
+	private array $pluginData;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string $mainFile   Main plugin file path.
+	 * @param array  $pluginData Plugin data from get_plugin_data().
+	 */
+	public function __construct( string $mainFile, array $pluginData ) {
+		$this->mainFile   = $mainFile;
+		$this->pluginData = $pluginData;
+		$this->container  = new Container();
+
+		$this->initContainer();
+		$this->init();
+		$this->registerHooks();
+	}
+
+	/**
+	 * Initialize the dependency injection container.
+	 */
+	private function initContainer(): void {
+		// Register plugin configuration.
+		$this->container->addParameter( 'MAIN_FILE', $this->mainFile );
+		$this->container->addParameter( 'BASE_URL', plugin_dir_url( $this->mainFile ) );
+		$this->container->addParameter( 'BASE_PATH', plugin_dir_path( $this->mainFile ) );
+		$this->container->addParameter( 'VERSION', $this->pluginData['Version'] ?? '1.0.0' );
+		$this->container->addParameter( 'NAME', $this->pluginData['Name'] ?? 'AI Summarize' );
+
+		// Register database connection.
+		$this->container->addService(
+			'db_connection',
 			static function (): wpdb {
 				global $wpdb;
 				return $wpdb;
 			}
 		);
 
-		/*
-		 * Define the plugin's settings service.
-		 *
-		 * This service handles all plugin configuration using WordPress Options API
-		 * including global prompt templates, AI service configuration, and
-		 * category-specific overrides.
-		 */
-		$container->addService(
+		// Register settings service.
+		$this->container->addService(
 			'settings',
 			static function (): Settings {
 				return new Settings();
 			}
 		);
 
-		/*
-		 * Define the URL generator service.
-		 *
-		 * This service generates properly formatted URLs for AI services with
-		 * encoded prompts for content summarization.
-		 */
-		$container->addService(
+		// Register URL generator service.
+		$this->container->addService(
 			'urlGenerator',
 			static function (): UrlGenerator {
 				return new UrlGenerator();
 			}
 		);
 
-		/*
-		 * Define the AI Summarize Buttons block.
-		 *
-		 * This block renders AI service buttons on the frontend for content
-		 * summarization using the configured settings and enabled services.
-		 */
-		$container->addService(
+		// Register AI Summarize Buttons block.
+		$this->container->addService(
 			'aiSummarizeButtons',
-			static function () use ( $container ): AiSummarizeButtons {
+			function (): AiSummarizeButtons {
 				return new AiSummarizeButtons(
-					$container->get( 'settings' ),
-					$container->get( 'urlGenerator' )
+					$this->container->get( 'settings' ),
+					$this->container->get( 'urlGenerator' )
 				);
 			}
 		);
+	}
 
-		/*
-		 * The Admin\Page class renders the plugin's admin page.
-		 *
-		 * It has container awareness so we need to set the container on the class
-		 * so that we ensure that the container is available when class methods
-		 * require other dependencies from the application.
-		 *
-		 * Setting it in this way makes it so that when testing the class we can
-		 * easily mock the container and inject it into the class but in production
-		 * the container will be set automatically to the application's container.
-		 */
-		Page::setContainer( $container );
+	/**
+	 * Initialize the plugin.
+	 */
+	private function init(): void {
+		// Set container on admin page.
+		Page::setContainer( $this->container );
 		Page::init();
 	}
 
 	/**
-	 * Returns an array of Hooks that should be added by the class.
-	 *
-	 * @return array
+	 * Register WordPress hooks.
 	 */
-	protected function configureHooks(): array {
-		/*
-		 * The Hook model is an abstraction layer that allows us to define
-		 * hooks using strict types via a declarative object.
-		 *
-		 * Doing so provides better automated validation on the hook's parameters
-		 * and also allows us to easily mock the hook object when testing.
-		 *
-		 * The array also accepts an array of arguments that will be converted
-		 * into a Hook object if that's preferred.
-		 */
-		return [
-			new Hook(
-				Hook::TYPE_ACTION,
-				'admin_menu',
-				[
-					Admin\Page::class,
-					'register',
-				]
-			),
-			new Hook(
-				Hook::TYPE_ACTION,
-				'init',
-				function (): void {
-					$block = $this->container()->get( 'aiSummarizeButtons' );
-					$block->register();
-				}
-			),
-			new Hook(
-				Hook::TYPE_ACTION,
-				'wp_enqueue_scripts',
-				function (): void {
-					// Enqueue frontend block styles.
-					wp_enqueue_style(
-						'ai-summarize-blocks',
-						$this->config()->getBaseUrl() . 'assets/frontend/css/blocks.css',
-						[],
-						$this->config()->getVersion()
-					);
+	private function registerHooks(): void {
+		// Register admin menu.
+		add_action( 'admin_menu', [ Admin\Page::class, 'register' ] );
 
-					// Enqueue modal service styles (for services without URL parameter support).
-					wp_enqueue_style(
-						'ai-summarize-modal-service',
-						$this->config()->getBaseUrl() . 'assets/frontend/css/modal-service.css',
-						[],
-						$this->config()->getVersion()
-					);
+		// Register block on init.
+		add_action(
+			'init',
+			function (): void {
+				$block = $this->container->get( 'aiSummarizeButtons' );
+				$block->register();
+			}
+		);
 
-					// Enqueue modal service script.
-					wp_enqueue_script(
-						'ai-summarize-modal-service',
-						$this->config()->getBaseUrl() . 'assets/frontend/js/modal-service.js',
-						[],
-						$this->config()->getVersion(),
-						true
-					);
-				}
-			),
-		];
+		// Enqueue frontend assets.
+		add_action(
+			'wp_enqueue_scripts',
+			function (): void {
+				// Enqueue frontend block styles.
+				wp_enqueue_style(
+					'ai-summarize-blocks',
+					$this->container->get( 'BASE_URL' ) . 'assets/frontend/css/blocks.css',
+					[],
+					$this->container->get( 'VERSION' )
+				);
+
+				// Enqueue modal service styles.
+				wp_enqueue_style(
+					'ai-summarize-modal-service',
+					$this->container->get( 'BASE_URL' ) . 'assets/frontend/css/modal-service.css',
+					[],
+					$this->container->get( 'VERSION' )
+				);
+
+				// Enqueue modal service script.
+				wp_enqueue_script(
+					'ai-summarize-modal-service',
+					$this->container->get( 'BASE_URL' ) . 'assets/frontend/js/modal-service.js',
+					[],
+					$this->container->get( 'VERSION' ),
+					true
+				);
+			}
+		);
+	}
+
+	/**
+	 * Get the container.
+	 *
+	 * @return Container
+	 */
+	public function container(): Container {
+		return $this->container;
 	}
 }
