@@ -21,15 +21,6 @@ declare(strict_types=1);
  */
 require_once 'vendor/autoload.php';
 
-/*
- * The vendor-prefixed autoloader is used to autoload classes from the Ground Level
- * framework.
- *
- * These classes are repnamespaced during a build step in order to prevent
- * conflicts with other plugins which may also utilize the Ground Level framework.
- */
-require_once 'vendor-prefixed/autoload.php';
-
 require_once 'src/functions.php';
 use function Caseproof\AiSummarize\aiSummarizeApp;
 
