@@ -1,3 +1,6 @@
+
+<img width="1000" height="333" alt="ai-summarize-logo" src="https://github.com/user-attachments/assets/8536dcba-6de2-4f76-90ba-efe56192c067" />
+
 # AI Summarize WordPress Plugin
 
 A WordPress plugin that adds AI service buttons to blog posts, allowing visitors to quickly summarize content using popular AI services.
